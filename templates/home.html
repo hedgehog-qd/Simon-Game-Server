@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Welcome to the Simon Game!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='dist/css/adminlte.min.css') }}"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"
+  />
+  <style>
+    body {
+      background-image: url('{{ url_for('static', filename='pics/background.jpg') }}');
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+    }
+    .download-btn {
+      width: 300px;
+      margin: 15px;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="mb-4">🎮 Welcome to the Simon Game!</h1>
+
+  <a href="/downloads/simon.exe" class="btn btn-success btn-lg download-btn">
+    <i class="fas fa-download"></i> Download Binary (.exe)
+  </a>
+
+  <a href="/downloads/latestLvproj" class="btn btn-primary btn-lg download-btn disabled">
+    <i class="fas fa-project-diagram"></i> Download LabVIEW Project (.lvproj)
+  </a>
+
+  <a href="/lb" class="btn btn-danger btn-lg download-btn">
+    <i class="fas fa-check"></i> Check the Leaderboard
+  </a>
+
+  <a href="/login?goto=/dashboard" class="btn btn-warning btn-lg download-btn">
+    <i class="fas fa-tachometer-alt"></i> Go to Dashboard
+  </a>
+
+</body>
+</html>

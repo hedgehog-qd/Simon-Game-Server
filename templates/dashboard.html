@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard Home{% endblock %}
+
+{% block position %}
+    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+    <li class="breadcrumb-item active">Home</li>
+{% endblock %}
+
+{% block page %}Dashboard Home{% endblock %}
+
+{% block sidebar %}
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/dashboard" class="nav-link active">
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>Home</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/lb" class="nav-link">
+                  <i class="nav-icon fas fa-search"></i>
+                  <p>Leaderboard</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/settings" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Account Settings</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/" class="nav-link">
+                  <i class="nav-icon fas fa-download"></i>
+                  <p>Download</p>
+                </a>
+              </li>
+            </ul>
+
+          </li>
+
+        </ul>
+      </nav>
+{% endblock %}
+
+{% block main %}
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Welcome to the Dashboard!</h5>
+
+                <p class="card-text">
+                   To edit account info, click "Settings"
+                </p>
+                <a href="/settings" class="btn btn-primary">Settings</a>
+              </div>
+            </div>
+
+            <div class="card card-primary card-outline">
+              <div class="card-body">
+                <h5 class="card-title">Download the Game</h5>
+
+                <p class="card-text">
+                  We provide the binary file (.exe) and the LabVIEW Project (.lvproj)
+                </p>
+                <a href="/" class="btn btn-primary">Download Game</a>
+              </div>
+            </div><!-- /.card -->
+          </div>
+          <!-- /.col-md-6 -->
+          <div class="col-lg-6">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="m-0">Check Leaderboard</h5>
+              </div>
+              <div class="card-body">
+                <p class="card-text">Wanna check how you did in the game?</p>
+                <a href="/lb" class="btn btn-primary">Leaderboard</a>
+              </div>
+            </div>
+
+
+              </div>
+            </div>
+          </div>
+          <!-- /.col-md-6 -->
+        </div>
+        <!-- /.row -->
+
+    <!-- /.content -->
+
+{% endblock %}

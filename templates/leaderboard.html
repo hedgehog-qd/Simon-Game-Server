@@ -1,0 +1,270 @@
+{% extends 'base.html' %}
+
+{% block title %}Leaderboard{% endblock %}
+
+{% block position %}
+    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+    <li class="breadcrumb-item active">Leaderboard</li>
+{% endblock %}
+
+{% block page %}Leaderboard{% endblock %}
+
+
+{% block sidebar %}
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/login?goto=/dashboard" class="nav-link">
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>Home</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/lb" class="nav-link active">
+                  <i class="nav-icon fas fa-search"></i>
+                  <p>Leaderboard</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/login?goto=/settings" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Account Settings</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/" class="nav-link">
+                  <i class="nav-icon fas fa-download"></i>
+                  <p>Download</p>
+                </a>
+              </li>
+            </ul>
+
+          </li>
+
+        </ul>
+      </nav>
+{% endblock %}
+
+{% block main %}
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">How I did?</h3>
+                    </div>
+                    <div class="card-body">
+                        {% if session['username'] %}
+                            <table id="myData" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                    <th style="width: 1%">#</th>
+                                    <th style="width: 1%">UID</th>
+                                    <th>Avatar</th>
+                                    <th>User Name</th>
+                                    <th>Score</th>
+                                    <th>Achieved Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <p class="card-text">Login to check how you did!</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">All Users</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="materialTable" class="table table-bordered table-hover">
+                  <thead>
+                    <tr>
+                        <th style="width: 1%">#</th>
+                      <th style="width: 1%">UID</th>
+                      <th>Avatar</th>
+                      <th>User Name</th>
+                      <th>Score</th>
+                      <th>Achieved Time</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+          <!-- /.col-md-6 -->
+    </div>
+        <!-- /.row -->
+
+    <!-- /.content -->
+
+{% endblock %}
+{% block js %}
+<!-- DataTables  & Plugins -->
+<script src="{{ url_for('static', filename='plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+<script>
+$(document).ready(function() {
+  $('#materialTable').DataTable({
+    "paging": true,  // 启用分页
+    "searching": true,  // 启用搜索功能
+    "ordering": true,  // 启用排序功能
+    "info": true,  // 启用页脚信息显示
+    "scrollX": true
+  });
+  
+  $('#myData').DataTable({
+    "paging": false,
+    "searching": false,
+    "ordering": false,
+    "info": false
+  });
+
+  // 加载数据
+  refreshTable();
+});
+
+</script>
+
+{% if session['username'] %}
+<script>
+var my_count = 0;
+</script>
+{% endif %}
+
+<script>
+function refreshTableData(data) {
+  // 清空现有的表格数据
+  const table = $('#materialTable').DataTable();
+  table.clear();
+    var count = 0;
+  // 遍历并插入新数据
+  data.forEach(row => {
+    // 假设每一行数据的结构与表头顺序一致
+    count += 1;
+    const ts = Date.now();  // ts
+
+    {% if session['username'] %}
+        if(row[1] == "{{session['username']}}"){
+            my_count = count;
+        }
+    {% endif %}
+    
+    const rowData = [
+        count,  // 排名
+      row[0],   // UID
+      "<img src=\"/api/getAvatarByName?uname=" + row[1] + "&ts=" + ts + "\"class=\"img-circle elevation-2\" alt=\"User Image\">",
+      row[1],   // User Name
+      row[2],   // Highest Score
+      row[3]   // Achieved Time
+    ];
+    table.row.add(rowData);  // 向表格中添加数据
+  });
+
+  // 重新渲染表格
+  table.draw();
+}
+
+async function refreshTable() {
+  const url = "/api/getLeaderBoardData"
+  const response = await fetch(url, {
+    method: 'GET'
+  });
+  if(response.ok){
+    const jsondata = await response.json();
+    const data = jsondata.result;
+    console.log(data);
+    refreshTableData(data);
+  } else {
+    console.error('请求失败:', response.status);
+            Swal.fire({
+                      title: "Internet ERROR!",
+                      icon: "error"
+                    });
+  }
+}
+refreshTable();
+</script>
+
+{% if session['username'] %}
+<script>
+    // if the user already logged in, we insert the user's data on the "my data" part
+function refreshMyDataTable(data){
+    const table = $('#myData').DataTable();
+    table.clear();
+    //data.forEach(row => {
+        row = data;
+    // 假设每一行数据的结构与表头顺序一致
+    const ts = Date.now();  // ts
+    const rowData = [
+        my_count,
+      row[0],   // UID
+      "<img src=\"/api/getAvatarByName?uname=" + row[1] + "&ts=" + ts + "\"class=\"img-circle elevation-2\" alt=\"User Image\">",
+      row[1],   // User Name
+      row[2],   // Highest Score
+      row[3]   // Achieved Time
+    ];
+    table.row.add(rowData);  // 向表格中添加数据
+  //});
+  // 重新渲染表格
+  table.draw();
+}
+
+async function refreshMyTable() {
+    const url = "/api/getLeaderBoardMyData"
+    const response = await fetch(url, {
+    method: 'GET'
+  });
+  if(response.ok){
+    const jsondata = await response.json();
+    const data = jsondata.result;
+    console.log(data);
+    refreshMyDataTable(data);
+  } else {
+    console.error('请求失败:', response.status);
+            Swal.fire({
+                      title: "Internet ERROR!",
+                      icon: "error"
+                    });
+  }
+}
+refreshMyTable();
+</script>
+{% endif %}
+
+{% endblock %}

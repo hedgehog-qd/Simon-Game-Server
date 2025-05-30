@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block title %}500{% endblock %}
+
+{% block position %}
+    <li class="breadcrumb-item"><a href="#">ERROR</a></li>
+    <li class="breadcrumb-item active">500</li>
+{% endblock %}
+
+{% block sidebar %}
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Check
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/dashboard" class="nav-link">
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>Home</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/lb" class="nav-link">
+                  <i class="nav-icon fas fa-search"></i>
+                  <p>Leaderboard</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/settings" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Account Settings</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/" class="nav-link">
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>Download</p>
+                </a>
+              </li>
+            </ul>
+
+          </li>
+
+        </ul>
+      </nav>
+{% endblock %}
+
+{% block main %}
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="error-page">
+        <h2 class="headline text-danger">500</h2>
+
+        <div class="error-content">
+          <h3><i class="fas fa-exclamation-triangle text-danger"></i> Oops! Something went wrong.</h3>
+
+          <p>
+            We will work on fixing that right away.
+            Meanwhile, you may <a href="/">return to home page</a> or try using the search form.
+          </p>
+
+        </div>
+        <!-- /.error-content -->
+      </div>
+      <!-- /.error-page -->
+    </section>
+    <!-- /.content -->
+  </div>
+{% endblock %}
